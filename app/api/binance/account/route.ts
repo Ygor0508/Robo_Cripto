@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { Client } from "binance-api-node"
+import Client from "binance-api-node"
 
 export async function GET() {
   try {
@@ -52,7 +52,7 @@ export async function GET() {
       canTrade: accountInfo.canTrade,
       canWithdraw: accountInfo.canWithdraw,
       canDeposit: accountInfo.canDeposit,
-      balances: accountInfo.balances.filter((b) => Number.parseFloat(b.free) > 0 || Number.parseFloat(b.locked) > 0),
+      balances: accountInfo.balances.filter((b: { free: string; locked: string; }) => Number.parseFloat(b.free) > 0 || Number.parseFloat(b.locked) > 0),
     })
   } catch (error) {
     console.error("Erro ao obter informações da conta:", error)
